@@ -19,6 +19,6 @@ class PostController extends Controller
             'contenido' => $request->contenido,
         ]);
 
-        return redirect()->route('inicio')->with('success', '¡Publicación realizada!');
+        return redirect()->route('inicio')->with('success', '¡Publicación realizada!'); //Inicio
     }
 }
