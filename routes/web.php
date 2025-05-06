@@ -10,6 +10,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 // ✅ Página inicial: Redirige al login si no está autenticado
 Route::get('/', function () {
@@ -64,3 +65,9 @@ Route::post('/seguir/{usuario}', [\App\Http\Controllers\SeguidorController::clas
 Route::delete('/seguir/{usuario}', [\App\Http\Controllers\SeguidorController::class, 'dejarDeSeguir'])->name('usuarios.dejar');
 
 Route::get('/usuarios/{usuario}', [UserController::class, 'show'])->name('usuarios.show');
+
+// Notificaciones
+Route::post('/notifications/mark-as-read', function() {
+    Auth::user()->notifications()->where('read', false)->update(['read' => true]);
+    return response()->json(['success' => true]);
+})->name('notifications.markAsRead');
