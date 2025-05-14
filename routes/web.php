@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,17 +22,63 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login'); // Mostrar formulario de login
 Route::post('/login', [AuthController::class, 'login']);                    // Procesar login
 
-Route::get('/admin/usuarios', [AuthController::class, 'adminUsuarios'])
-    ->middleware('auth')
-    ->name('admin.usuarios');
-
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register'); // Mostrar formulario de registro
 Route::post('/register', [AuthController::class, 'register']);                      // Procesar registro
+
+// Mostrar formulario admin login
+Route::get('/admin/login', function () {
+    return view('admin_login');
+})->name('admin.login');
+
+// Validar credenciales admin
+Route::post('/admin/login', function (Request $request) {
+    if ($request->username === 'admin' && $request->password === 'admin') {
+        session(['admin_logged_in' => true]);
+        return redirect()->route('admin.dashboard');
+    }
+    return back()->with('error', 'Credenciales incorrectas');
+})->name('admin.auth');
+
+// Mostrar dashboard admin
+Route::get('/admin/dashboard', function () {
+    if (!session('admin_logged_in')) {
+        return redirect()->route('admin.login')->with('error', 'Debes iniciar sesión como administrador.');
+    }
+
+    // Aquí puedes cargar los usuarios desde la base de datos
+    $usuarios = \App\Models\User::all();
+
+    return view('admin.usuarios', compact('usuarios'));
+})->name('admin.dashboard');
+
+// Cerrar sesión admin
+Route::post('/admin/logout', function () {
+    session()->forget('admin_logged_in');
+    return redirect()->route('admin.login');
+})->name('admin.logout');
 
 Route::get('/check-username', function(Request $request) {
     $exists = User::where('name', $request->username)->exists();
     return response()->json(['available' => !$exists]);
 })->middleware('web');
+
+// Ruta para banear
+Route::post('/admin/banear/{id}', [AdminController::class, 'banear'])->name('admin.banear');
+
+// Ruta del dashboard admin
+Route::get('/admin/dashboard', function () {
+    if (!session('admin_logged_in')) {
+        return redirect()->route('admin.login')->with('error', 'Debes iniciar sesión como administrador.');
+    }
+
+    $usuarios = \App\Models\User::all();
+    return view('admin.usuarios', compact('usuarios'));
+})->name('admin.dashboard');
+
+// Ruta para usuarios baneados
+Route::get('/baneado', function () {
+    return view('auth.baneado');
+})->name('baneado');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');         // Cerrar sesión
 
