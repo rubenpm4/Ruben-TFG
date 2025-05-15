@@ -10,15 +10,10 @@ class AdminController extends Controller
 {
     public function banear($id)
     {
-        $user = User::findOrFail($id);
-        
-        if ($user->email === '159paradas@gmail.com') {
-            return redirect()->back()->with('error', 'No puedes banear a este usuario');
-        }
+        $usuario = User::findOrFail($id);
+        $usuario->baneado = true;
+        $usuario->save();
 
-        $user->update(['baneado' => true]);
-        
-        // Forzar recarga de la página
-        return redirect()->route('admin.dashboard')->with('success', 'Usuario baneado correctamente');
+        return redirect()->route('admin.dashboard')->with('success', 'Usuario baneado correctamente.');
     }
 }

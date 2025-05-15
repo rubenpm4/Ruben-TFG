@@ -51,22 +51,22 @@
             </thead>
             <tbody>
                 @foreach ($usuarios as $usuario)
-                <tr class="{{ $usuario->email === '159paradas@gmail.com' ? 'admin-user' : '' }}">
-                    <td>{{ $usuario->id }}</td>
-                    <td>{{ $usuario->name }}</td>
-                    <td>{{ $usuario->email }}</td>
-                    <td>{{ $usuario->created_at->format('d/m/Y H:i') }}</td>
-                    <td>
-                        @if ($usuario->banned)
-                            <span class="text-danger font-bold">BANEADO</span>
-                        @else
-                            <form action="{{ route('admin.banear', $usuario->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn-ban" onclick="return confirm('¿Estás seguro?')">Banear</button>
-                            </form>
-                        @endif
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $usuario->id }}</td>
+                        <td>{{ $usuario->name }}</td>
+                        <td>{{ $usuario->email }}</td>
+                        <td>{{ $usuario->created_at }}</td>
+                        <td>
+                            @if ($usuario->baneado)
+                                <span class="btn-banned">BANEADO</span>
+                            @else
+                                <form action="{{ route('admin.banear', $usuario->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn-banear">Banear</button>
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -330,6 +330,36 @@
         .security-warning svg {
             align-self: center;
         }
+    }
+
+    .btn-banear {
+        background-color: var(--danger);
+        color: var(--text-light);
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-banear:hover {
+        background-color: var(--danger-light);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+    }
+
+    .btn-banned {
+        display: inline-block;
+        background-color: #555;
+        color: var(--text-muted);
+        padding: 0.4rem 0.9rem;
+        border-radius: 5px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        letter-spacing: 0.5px;
     }
 </style>
 @endsection

@@ -39,6 +39,7 @@ Route::post('/admin/login', function (Request $request) {
     return back()->with('error', 'Credenciales incorrectas');
 })->name('admin.auth');
 
+/*
 // Mostrar dashboard admin
 Route::get('/admin/dashboard', function () {
     if (!session('admin_logged_in')) {
@@ -50,6 +51,7 @@ Route::get('/admin/dashboard', function () {
 
     return view('admin.usuarios', compact('usuarios'));
 })->name('admin.dashboard');
+*/
 
 // Cerrar sesión admin
 Route::post('/admin/logout', function () {
@@ -72,6 +74,7 @@ Route::get('/admin/dashboard', function () {
     }
 
     $usuarios = \App\Models\User::all();
+
     return view('admin.usuarios', compact('usuarios'));
 })->name('admin.dashboard');
 

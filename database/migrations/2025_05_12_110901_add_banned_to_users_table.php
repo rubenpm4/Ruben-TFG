@@ -6,23 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('baneado')->default(false)->after('password');
+            $table->boolean('baneado')->default(false);
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('baneado');
         });
-    }
+    }    
 };
