@@ -9,6 +9,7 @@ use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClasificacionController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -105,10 +106,11 @@ Route::get('/inicio', [HomeController::class, 'index'])->middleware('auth')->nam
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
 
 Route::post('/posts/{post}/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store')->middleware('auth');
+Route::delete('/comentarios/{comentario}', [ComentarioController::class, 'destroy'])->name('comentarios.destroy');
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like')->middleware('auth');
 
 // Visitar el perfil de un usuario
-Route::get('/usuarios/{user}', [UserController::class, 'show'])->name('usuarios.show');
+//Route::get('/usuarios/{user}', [UserController::class, 'show'])->name('usuarios.show');
 Route::post('/usuarios/{user}/follow', [UserController::class, 'follow'])->middleware('auth')->name('usuarios.follow');
 
 Route::post('/seguir/{usuario}', [\App\Http\Controllers\SeguidorController::class, 'seguir'])->name('usuarios.seguir');
@@ -121,3 +123,7 @@ Route::post('/notifications/mark-as-read', function() {
     Auth::user()->notifications()->where('read', false)->update(['read' => true]);
     return response()->json(['success' => true]);
 })->name('notifications.markAsRead');
+
+// Rutas de clasificación y partidos
+Route::get('/clasificacion/1', [ClasificacionController::class, 'primera'])->name('clasificacion.primera');
+Route::get('/clasificacion/2', [ClasificacionController::class, 'segunda'])->name('clasificacion.segunda');

@@ -13,6 +13,8 @@
             --highlight: #3b82f6;
             --success: #22c55e;
             --error: #ef4444;
+            --info: #3b82f6;
+            --cookie-bg: rgba(30, 41, 59, 0.95);
         }
 
         body {
@@ -112,19 +114,24 @@
             position: relative;
         }
 
-        .password-match, .username-status {
+        .password-match, .username-status, .password-strength {
             font-size: 0.85rem;
             margin-top: 0.3rem;
             display: none;
         }
 
-        .password-match.valid, .username-status.valid {
+        .password-match.valid, .username-status.valid, .password-strength.valid {
             color: var(--success);
             display: block;
         }
 
-        .password-match.error, .username-status.error {
+        .password-match.error, .username-status.error, .password-strength.error {
             color: var(--error);
+            display: block;
+        }
+
+        .password-strength.info {
+            color: var(--info);
             display: block;
         }
 
@@ -171,6 +178,64 @@
             text-decoration: underline;
         }
 
+        /* Estilos para el modal de cookies */
+        .cookie-modal {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--cookie-bg);
+            padding: 1.5rem;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            border-top: 2px solid var(--accent);
+        }
+
+        .cookie-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cookie-title {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .cookie-text {
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .cookie-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .cookie-accept {
+            background-color: var(--accent);
+            color: var(--primary);
+            border: none;
+        }
+
+        .cookie-accept:hover {
+            background-color: #fde047;
+        }
+
         @media (max-width: 480px) {
             .register-container {
                 padding: 2rem 1.5rem;
@@ -179,6 +244,19 @@
 
             h1 {
                 font-size: 2rem;
+            }
+
+            .cookie-content {
+                padding: 1rem;
+            }
+
+            .cookie-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .cookie-btn {
+                width: 100%;
             }
         }
     </style>
@@ -201,6 +279,7 @@
 
             <div class="password-container">
                 <input type="password" name="password" id="password" placeholder="Contraseña" required>
+                <div id="password-strength" class="password-strength"></div>
             </div>
 
             <div class="password-container">
@@ -213,39 +292,155 @@
         <a href="{{ route('login') }}">¿Ya tienes cuenta? Inicia sesión</a>
     </div>
 
+    <!-- Modal de Cookies -->
+    <div id="cookieModal" class="cookie-modal">
+        <div class="cookie-content">
+            <div class="cookie-title">🍪 Uso de Cookies</div>
+            <div class="cookie-text">
+                Utilizamos cookies para mejorar tu experiencia en nuestro sitio web. Al registrarte, aceptas el uso de cookies según nuestra Política de Privacidad. Las cookies nos ayudan a personalizar contenido, proporcionar funciones de redes sociales y analizar nuestro tráfico.
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-accept" id="acceptCookies">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const password = document.getElementById('password');
         const confirm_password = document.getElementById('confirm_password');
         const password_match = document.getElementById('password-match');
+        const password_strength = document.getElementById('password-strength');
         const usernameInput = document.getElementById('username');
         const usernameStatus = document.getElementById('username-status');
         const submitBtn = document.getElementById('submitBtn');
+        const cookieModal = document.getElementById('cookieModal');
+        const acceptCookiesBtn = document.getElementById('acceptCookies');
         let usernameAvailable = false;
+        let passwordValid = false;
+
+        // Mostrar modal de cookies cuando el formulario se envía correctamente
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            if (!usernameAvailable || !passwordValid) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Solo mostramos el modal si el formulario es válido
+            if (this.checkValidity()) {
+                e.preventDefault(); // Prevenimos el envío para mostrar primero el modal
+                showCookieModal();
+            }
+        });
+
+        function showCookieModal() {
+            cookieModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideCookieModal() {
+            cookieModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Enviamos el formulario después de aceptar las cookies
+            document.getElementById('registerForm').submit();
+        }
+
+        acceptCookiesBtn.addEventListener('click', hideCookieModal);
+
+        function checkPasswordStrength(pw) {
+            let strength = 0;
+            let messages = [];
+
+            // Longitud mínima
+            if (pw.length < 8) {
+                messages.push("Al menos 8 caracteres");
+            } else {
+                strength++;
+            }
+
+            // Contiene mayúsculas
+            if (!/[A-Z]/.test(pw)) {
+                messages.push("Al menos una mayúscula");
+            } else {
+                strength++;
+            }
+
+            // Contiene minúsculas
+            if (!/[a-z]/.test(pw)) {
+                messages.push("Al menos una minúscula");
+            } else {
+                strength++;
+            }
+
+            // Contiene números
+            if (!/[0-9]/.test(pw)) {
+                messages.push("Al menos un número");
+            } else {
+                strength++;
+            }
+
+            // Contiene caracteres especiales
+            if (!/[^A-Za-z0-9]/.test(pw)) {
+                messages.push("Al menos un carácter especial");
+            } else {
+                strength++;
+            }
+
+            return { strength, messages };
+        }
 
         function validatePassword() {
-            const passwordsMatch = password.value === confirm_password.value && password.value !== '';
+            const pw = password.value;
+            const confirmPw = confirm_password.value;
+            
+            // Validar fortaleza de la contraseña
+            if (pw.length > 0) {
+                const { strength, messages } = checkPasswordStrength(pw);
+                
+                if (strength < 3) {
+                    password_strength.textContent = "Contraseña débil: " + messages.join(", ");
+                    password_strength.classList.remove('valid', 'info');
+                    password_strength.classList.add('error');
+                    passwordValid = false;
+                } else if (strength < 5) {
+                    password_strength.textContent = "Contraseña media: " + messages.join(", ");
+                    password_strength.classList.remove('valid', 'error');
+                    password_strength.classList.add('info');
+                    passwordValid = true;
+                } else {
+                    password_strength.textContent = "Contraseña fuerte ✓";
+                    password_strength.classList.remove('error', 'info');
+                    password_strength.classList.add('valid');
+                    passwordValid = true;
+                }
+            } else {
+                password_strength.classList.remove('valid', 'error', 'info');
+                passwordValid = false;
+            }
 
-            if (password.value !== '' && confirm_password.value !== '') {
-                if (passwordsMatch) {
+            // Validar coincidencia de contraseñas
+            const passwordsMatch = pw === confirmPw && pw !== '';
+            
+            if (pw !== '' && confirmPw !== '') {
+                if (passwordsMatch && passwordValid) {
                     password_match.classList.add('valid');
                     password_match.classList.remove('error');
                     password_match.textContent = '¡Las contraseñas coinciden!';
                 } else {
                     password_match.classList.remove('valid');
                     password_match.classList.add('error');
-                    password_match.textContent = 'Las contraseñas no coinciden';
+                    password_match.textContent = 'Las contraseñas no coinciden o no cumplen los requisitos';
                 }
             } else {
                 password_match.classList.remove('valid');
                 password_match.classList.remove('error');
             }
 
-            updateSubmitButton(); // ✅ Esto asegura que el botón se actualiza correctamente
+            updateSubmitButton();
         }
 
         function updateSubmitButton() {
             const passwordsMatch = password_match.classList.contains('valid');
-            submitBtn.disabled = !(usernameAvailable && passwordsMatch);
+            submitBtn.disabled = !(usernameAvailable && passwordsMatch && passwordValid);
         }
 
         usernameInput.addEventListener('input', function () {
@@ -285,15 +480,6 @@
 
         password.addEventListener('input', validatePassword);
         confirm_password.addEventListener('input', validatePassword);
-
-        document.getElementById('registerForm').addEventListener('submit', function (e) {
-            if (!usernameAvailable) {
-                e.preventDefault();
-                usernameStatus.textContent = 'Por favor, elige un nombre de usuario disponible';
-                usernameStatus.classList.remove('valid');
-                usernameStatus.classList.add('error');
-            }
-        });
     </script>
 </body>
 </html>

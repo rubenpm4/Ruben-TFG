@@ -17,6 +17,8 @@
             --border: #2a3a5a;
             --shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --error: #dc3545;
+            --error-light: rgba(220, 53, 69, 0.2);
         }
         
         * {
@@ -205,6 +207,31 @@
             color: var(--accent);
         }
         
+        /* Estilos para el mensaje de error */
+        .error-message {
+            background-color: var(--error-light);
+            color: var(--text-light);
+            border-left: 4px solid var(--error);
+            padding: 12px 16px;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .error-message::before {
+            content: "⚠";
+            font-size: 1.2rem;
+            color: var(--error);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 480px) {
             body {
                 padding: 1.5rem;
@@ -226,6 +253,12 @@
             <div class="logo">
                 <h1><span class="football-icon">⚽</span> KizumaScore</h1>
             </div>
+            
+            @if($errors->any())
+                <div class="error-message">
+                    Correo electrónico o contraseña incorrectos
+                </div>
+            @endif
             
             <form method="POST" action="{{ route('login') }}">
                 @csrf

@@ -15,6 +15,8 @@
             --danger: #E74C3C;
             --info: #3498db;
             --notification: #e74c3c;
+            --liga-primary: #FF0200;
+            --liga-secondary: #FEBE10;
         }
         
         body {
@@ -138,6 +140,108 @@
         .logo::before {
             content: "⚽";
             font-size: 1.5rem;
+        }
+
+        /* Menú de ligas */
+        .liga-menu {
+            position: relative;
+            margin-right: 40rem;
+        }
+
+        .liga-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, var(--liga-primary), var(--liga-secondary));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .liga-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .liga-btn .icon {
+            font-size: 1.2rem;
+        }
+
+        .liga-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            background-color: var(--secondary);
+            border: 1px solid var(--highlight);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 280px;
+            z-index: 1000;
+            display: none;
+            transform-origin: top left;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+
+        .liga-dropdown.show-liga-menu {
+            display: block;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .liga-section {
+            padding: 1rem;
+            border-bottom: 1px solid var(--highlight);
+        }
+
+        .liga-section:last-child {
+            border-bottom: none;
+        }
+
+        .liga-section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .liga-section-title .icon {
+            font-size: 1.1rem;
+        }
+
+        .liga-link {
+            display: block;
+            padding: 0.6rem 0.8rem;
+            margin: 0.3rem 0;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .liga-link:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+            color: var(--accent);
+        }
+
+        .liga-link .badge {
+            float: right;
+            background-color: var(--liga-primary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
         }
 
         /* Estilos mejorados para notificaciones */
@@ -293,6 +397,24 @@
                 padding: 0.7rem;
             }
 
+            .liga-menu {
+                order: -1;
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .liga-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .liga-dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+            }
+
             .notifications-dropdown {
                 width: 280px;
                 right: 50%;
@@ -314,7 +436,38 @@
         <a href="{{ route('inicio') }}" class="logo">KizumaScore</a>
         
         @auth
-        <div class="user-info">
+            <div class="user-info">
+                <!-- Menú de Ligas -->
+                <div class="liga-menu">
+                    <button class="liga-btn" id="ligaBtn">
+                        <span class="icon">🏆</span>
+                        <span>Liga Española</span>
+                    </button>
+                    <div class="liga-dropdown" id="ligaDropdown">
+                        <div class="liga-section">
+                            <div class="liga-section-title">
+                                <span class="icon">⭐</span>
+                                <span>Primera División</span>
+                            </div>
+                            <a href="{{ route('clasificacion.primera') }}" class="liga-link">
+                                Clasificación
+                                <span class="badge">LIVE</span>
+                            </a>
+                        </div>
+                        <div class="liga-section">
+                            <div class="liga-section-title">
+                                <span class="icon">🔹</span>
+                                <span>Segunda División</span>
+                            </div>
+                            <a href="{{ route('clasificacion.segunda') }}" class="liga-link">
+                                Clasificación
+                                <span class="badge">LIVE</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <p class="welcome-message">Hola, <span>{{ auth()->user()->name }}</span></p>
 
             <div class="notification-bell" id="notificationBell">
@@ -395,6 +548,26 @@
     </main>
 
     <script>
+        // Toggle del menú de ligas
+        document.getElementById('ligaBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('ligaDropdown');
+            dropdown.classList.toggle('show-liga-menu');
+            
+            // Cerrar otros menús si están abiertos
+            document.getElementById('notificationsDropdown').classList.remove('show-notifications');
+        });
+
+        // Cerrar el menú de ligas al hacer clic fuera
+        document.addEventListener('click', function() {
+            document.getElementById('ligaDropdown').classList.remove('show-liga-menu');
+        });
+
+        // Evitar que el menú de ligas se cierre al hacer clic dentro
+        document.getElementById('ligaDropdown').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
         // Toggle del dropdown de notificaciones con animación
         document.getElementById('notificationBell').addEventListener('click', function(e) {
             e.stopPropagation();
@@ -405,6 +578,8 @@
                 dropdown.classList.remove('show-notifications');
             } else {
                 dropdown.classList.add('show-notifications');
+                // Cerrar menú de ligas si está abierto
+                document.getElementById('ligaDropdown').classList.remove('show-liga-menu');
                 markNotificationsAsRead();
             }
         });

@@ -110,6 +110,42 @@
     </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Likes con AJAX
+    document.querySelectorAll('.like-form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const postId = form.dataset.postId;
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+            });
+            if (response.ok) {
+                location.reload(); // O actualiza el contador dinámicamente si prefieres
+            }
+        });
+    });
+
+    // Comentarios con AJAX
+    document.querySelectorAll('.comment-form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const postId = form.dataset.postId;
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {'X-Requested-With': 'XMLHttpRequest'},
+            });
+            if (response.ok) {
+                location.reload(); // O recarga solo los comentarios con JS
+            }
+        });
+    });
+});
+</script>
+
 <style>
     :root {
         --primary: #121212;
