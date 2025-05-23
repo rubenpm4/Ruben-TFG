@@ -41,7 +41,7 @@ Kizuma es una red social centrada en el fútbol, donde los usuarios pueden compa
 
 ```bash
 # 1. Clona el repositorio
-git clone https://github.com/tu-usuario/kizuma.git
+git clone git@github.com:rubenpm4/Ruben-TFG.git
 cd kizuma
 
 # 2. Instala dependencias PHP
