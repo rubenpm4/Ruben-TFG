@@ -10,28 +10,22 @@ class UserController extends Controller
 {
     public function show(User $usuario)
     {
-        // Publicaciones del usuario con relaciones de likes y comentarios
         $publicaciones = $usuario->posts()
             ->withCount('likes', 'comentarios')
             ->latest()
             ->get();
-    
-        // Listas de seguidores y seguidos
+
         $seguidoresLista = $usuario->seguidores()->get();
         $seguidosLista = $usuario->seguidos()->get();        
-    
-        // Cantidades
-        $seguidores = $seguidoresLista->count();
-        $seguidos = $seguidosLista->count();
-    
-        return view('perfil.show', compact(
-            'usuario',
-            'publicaciones',
-            'seguidores',
-            'seguidos',
-            'seguidoresLista',
-            'seguidosLista'
-        ));
+
+        return view('perfil.show', [
+            'usuario' => $usuario,
+            'publicaciones' => $publicaciones,
+            'seguidores' => $seguidoresLista->count(),
+            'seguidos' => $seguidosLista->count(),
+            'seguidoresLista' => $seguidoresLista,
+            'seguidosLista' => $seguidosLista
+        ]);
     }
 
     public function follow(User $user)
@@ -39,13 +33,26 @@ class UserController extends Controller
         $follower = Auth::user();
 
         if ($follower->id === $user->id) {
-            return redirect()->back()->with('error', 'No puedes seguirte a ti mismo.');
+            return back()->with('error', 'No puedes seguirte a ti mismo.');
         }
 
         if (!$follower->siguiendo->contains($user->id)) {
             $follower->seguidos()->attach($user->id);
+            return back()->with('success', 'Ahora sigues a ' . $user->name);
         }
 
-        return redirect()->back()->with('success', 'Has comenzado a seguir a ' . $user->name);
+        return back();
+    }
+
+    public function ban($id)
+    {
+        $user = User::findOrFail($id);
+        
+        if ($user->email === '159paradas@gmail.com') {
+            return back()->with('error', 'No puedes banear a este usuario');
+        }
+
+        $user->update(['baneado' => true]);
+        return back()->with('success', 'Usuario baneado correctamente');
     }
 }

@@ -78,4 +78,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function createNotification($type, $data = [])
+    {
+        return $this->notifications()->create([
+            'type' => $type,
+            'data' => json_encode($data),
+            'read' => false
+        ]);
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->notifications()->where('read', false);
+    }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión | KizumaScore</title>
+    <title>Login Administrador | KizumaScore</title>
     <style>
         :root {
             --primary: #1a1a2e;
@@ -12,13 +12,11 @@
             --accent-light: #ffdf4d;
             --text: #e6e6e6;
             --text-light: #ffffff;
-            --text-muted: #b3b3b3;
             --highlight: #0f3460;
             --border: #2a3a5a;
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --danger: #e74c3c;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --error: #dc3545;
-            --error-light: rgba(220, 53, 69, 0.2);
         }
         
         * {
@@ -34,21 +32,20 @@
             padding: 2rem;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             color: var(--text);
             line-height: 1.6;
         }
         
-        .login-wrapper {
+        .admin-login-container {
             width: 100%;
             max-width: 420px;
             position: relative;
         }
         
-        .login-container {
-            background-color: rgba(26, 26, 46, 0.9);
+        .admin-login {
+            background: rgba(22, 33, 62, 0.9);
             backdrop-filter: blur(8px);
             padding: 2.5rem;
             border-radius: 12px;
@@ -61,36 +58,32 @@
             transition: var(--transition);
         }
         
-        .login-container:hover {
+        .admin-login:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
         }
         
-        .login-container::before {
+        .admin-login::before {
             content: "";
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                rgba(22, 33, 62, 0.8),
-                rgba(26, 26, 46, 0.9)
-            ), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
-            background-size: cover;
-            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--danger));
+            z-index: 2;
         }
         
-        .logo {
+        .admin-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
         }
         
-        .logo h1 {
+        .admin-header h2 {
             color: var(--accent);
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: 1px;
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
@@ -98,15 +91,32 @@
             gap: 0.5rem;
         }
         
-        .logo .football-icon {
-            filter: drop-shadow(0 0 4px rgba(249, 200, 14, 0.6));
-            animation: pulse 2s infinite;
+        .admin-header h2::before,
+        .admin-header h2::after {
+            content: "⚙️";
+            font-size: 1.2rem;
+            opacity: 0.7;
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .admin-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .error {
+            color: var(--danger);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 0.8rem;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid var(--danger);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         form {
@@ -168,68 +178,20 @@
             transform: translateY(0);
         }
         
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .back-link {
             margin-top: 2rem;
             text-align: center;
         }
         
-        .links a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 0.5rem;
-            border-radius: 4px;
-        }
-        
-        .links a:hover {
-            color: var(--text-light);
-            background-color: rgba(249, 200, 14, 0.1);
-            text-decoration: none;
-        }
-        
-        .admin-link {
-            margin-top: 2rem;
-            text-align: center;
-        }
-        
-        .admin-link a {
+        .back-link a {
             color: var(--text-muted);
             font-size: 0.9rem;
             text-decoration: none;
             transition: var(--transition);
         }
         
-        .admin-link a:hover {
+        .back-link a:hover {
             color: var(--accent);
-        }
-        
-        /* Estilos para el mensaje de error */
-        .error-message {
-            background-color: var(--error-light);
-            color: var(--text-light);
-            border-left: 4px solid var(--error);
-            padding: 12px 16px;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        
-        .error-message::before {
-            content: "⚠";
-            font-size: 1.2rem;
-            color: var(--error);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         @media (max-width: 480px) {
@@ -237,47 +199,42 @@
                 padding: 1.5rem;
             }
             
-            .login-container {
+            .admin-login {
                 padding: 2rem 1.5rem;
             }
             
-            .logo h1 {
-                font-size: 1.8rem;
+            .admin-header h2 {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="login-wrapper">
-        <div class="login-container">
-            <div class="logo">
-                <h1><span class="football-icon">⚽</span> KizumaScore</h1>
+    <div class="admin-login-container">
+        <div class="admin-login">
+            <div class="admin-header">
+                <h2>Acceso Administrador</h2>
+                <p>Panel de control de KizumaScore</p>
             </div>
             
-            @if($errors->any())
-                <div class="error-message">
-                    Correo electrónico o contraseña incorrectos
-                </div>
+            @if(session('error'))
+                <p class="error">{{ session('error') }}</p>
             @endif
             
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('admin.auth') }}">
                 @csrf
                 <div class="input-group">
-                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                    <input type="text" name="username" placeholder="Usuario administrador" required>
                 </div>
                 <div class="input-group">
                     <input type="password" name="password" placeholder="Contraseña" required>
                 </div>
-                <button type="submit">Iniciar Sesión</button>
+                <button type="submit">Acceder</button>
             </form>
             
-            <div class="links">
-                <a href="{{ route('register') }}">¿No tienes cuenta? Regístrate</a>
+            <div class="back-link">
+                <a href="{{ route('login') }}">← Volver al login de usuarios</a>
             </div>
-        </div>
-        
-        <div class="admin-link">
-            <a href="{{ route('admin.login') }}">Acceso administradores</a>
         </div>
     </div>
 </body>

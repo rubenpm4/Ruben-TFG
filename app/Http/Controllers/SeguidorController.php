@@ -5,26 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Notification;
 
 class SeguidorController extends Controller
 {
-    /**
-     * Seguir a un usuario.
-     */
     public function seguir(User $usuario)
     {
         $user = Auth::user();
 
         if ($user->id !== $usuario->id && !$user->estaSiguiendo($usuario)) {
             $user->seguidos()->attach($usuario->id);
+            
+            // Crear notificación
+            $usuario->createNotification('follow', [
+                'follower_id' => $user->id,
+                'follower_name' => $user->name
+            ]);
         }
 
         return redirect()->back();
     }
 
-    /**
-     * Dejar de seguir a un usuario.
-     */
     public function dejarDeSeguir(User $usuario)
     {
         $user = Auth::user();

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -21,16 +21,15 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    
-        $user = \App\Models\User::create([
+
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-    
-        Auth::login($user); // Autentica automáticamente al usuario
-    
-        return redirect()->route('inicio'); // Redirige a la página inicial
+
+        Auth::login($user);
+        return redirect()->route('inicio');
     }
 
     public function showLogin()
@@ -40,38 +39,25 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
+    
+        $user = User::where('email', $credentials['email'])->first();
+    
+        if ($user && $user->baneado) {
+            return redirect()->route('baneado');
+        }
+    
+        if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
-
-            // Verifica si el usuario es el admin especial
-            if (Auth::user()->email === '159paradas@gmail.com') {
-                return redirect()->route('admin.usuarios');
-            }
-
-            return redirect()->route('inicio');
-        }
-
-        return back()->withErrors([
-            'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
-        ])->onlyInput('email');
-    }
-    
-    public function adminUsuarios()
-    {
-        // Verificar que sea el usuario admin
-        if (Auth::user()->email !== '159paradas@gmail.com') {
-            abort(403, 'Acceso no autorizado');
+            return redirect()->intended(route('inicio'));
         }
     
-        $usuarios = User::all();
-        return view('admin.usuarios', compact('usuarios'));
+        throw ValidationException::withMessages([
+            'email' => __('auth.failed'),
+        ]);
     }
 
     public function logout(Request $request)

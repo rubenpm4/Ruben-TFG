@@ -76,19 +76,9 @@
         <div class="tab-content active" id="posts-tab">
             @forelse ($publicaciones as $post)
             <div class="post-card">
-                <div class="post-header">
-                    <span class="post-time">{{ $post->created_at->diffForHumans() }}</span>
-                    @if(auth()->id() === $usuario->id)
-                    <div class="post-actions">
-                        <button class="action-btn">✏️</button>
-                        <button class="action-btn">🗑️</button>
-                    </div>
-                    @endif
-                </div>
                 <p class="post-content">{{ $post->contenido }}</p>
                 <div class="post-footer">
                     <button class="like-btn">👍 {{ $post->likes_count }}</button>
-                    <button class="comment-btn">💬 {{ $post->comments_count }}</button>
                 </div>
             </div>
             @empty
