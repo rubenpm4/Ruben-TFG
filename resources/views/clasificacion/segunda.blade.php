@@ -186,265 +186,265 @@
                 <tr>
                     <td>1</td>
                     <td><img src="{{ asset('images/equipos_segunda/levante.png') }}" alt="Levante" width="24"> Levante</td>
-                    <td>41</td>
-                    <td>21</td>
+                    <td>42</td>
+                    <td>22</td>
                     <td>13</td>
                     <td>7</td>
-                    <td>68</td>
+                    <td>69</td>
                     <td>42</td>
-                    <td>+26</td>
-                    <td><strong>76</strong></td>
+                    <td>+27</td>
+                    <td><strong>79</strong></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td><img src="{{ asset('images/equipos_segunda/elche.png') }}" alt="Elche C. F." width="24"> Elche C. F.</td>
-                    <td>41</td>
-                    <td>21</td>
+                    <td>42</td>
+                    <td>22</td>
                     <td>11</td>
                     <td>9</td>
-                    <td>55</td>
+                    <td>59</td>
                     <td>34</td>
-                    <td>+21</td>
-                    <td><strong>74</strong></td>
+                    <td>+25</td>
+                    <td><strong>77</strong></td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td><img src="{{ asset('images/equipos_segunda/oviedo.png') }}" alt="Real Oviedo" width="24"> Real Oviedo</td>
-                    <td>41</td>
-                    <td>20</td>
+                    <td>42</td>
+                    <td>21</td>
                     <td>12</td>
                     <td>9</td>
-                    <td>54</td>
-                    <td>41</td>
-                    <td>+13</td>
-                    <td><strong>72</strong></td>
+                    <td>56</td>
+                    <td>42</td>
+                    <td>+14</td>
+                    <td><strong>75</strong></td>
                 </tr>
                 <tr>
                     <td>4</td>
                     <td><img src="{{ asset('images/equipos_segunda/mirandes.png') }}" alt="Mirandés" width="24"> Mirandés</td>
-                    <td>41</td>
-                    <td>21</td>
+                    <td>42</td>
+                    <td>22</td>
                     <td>9</td>
                     <td>11</td>
-                    <td>56</td>
-                    <td>39</td>
-                    <td>+17</td>
-                    <td><strong>72</strong></td>
+                    <td>59</td>
+                    <td>40</td>
+                    <td>+19</td>
+                    <td><strong>75</strong></td>
                 </tr>
                 <tr>
                     <td>5</td>
                     <td><img src="{{ asset('images/equipos_segunda/santander.png') }}" alt="Racing de Santander" width="24"> Racing de Santander</td>
-                    <td>41</td>
-                    <td>19</td>
+                    <td>42</td>
+                    <td>20</td>
                     <td>11</td>
                     <td>11</td>
-                    <td>63</td>
-                    <td>50</td>
-                    <td>+13</td>
-                    <td><strong>68</strong></td>
+                    <td>65</td>
+                    <td>51</td>
+                    <td>+14</td>
+                    <td><strong>71</strong></td>
                 </tr>
                 <tr>
                     <td>6</td>
                     <td><img src="{{ asset('images/equipos_segunda/almeria.png') }}" alt="Almería" width="24"> Almería</td>
-                    <td>41</td>
-                    <td>18</td>
+                    <td>42</td>
+                    <td>19</td>
                     <td>12</td>
                     <td>11</td>
-                    <td>70</td>
+                    <td>72</td>
                     <td>55</td>
-                    <td>+15</td>
-                    <td><strong>66</strong></td>
+                    <td>+17</td>
+                    <td><strong>69</strong></td>
                 </tr>
                 <tr>
                     <td>7</td>
                     <td><img src="{{ asset('images/equipos_segunda/granada.png') }}" alt="Granada" width="24"> Granada</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>18</td>
                     <td>11</td>
-                    <td>12</td>
-                    <td>64</td>
-                    <td>52</td>
-                    <td>+12</td>
+                    <td>13</td>
+                    <td>65</td>
+                    <td>54</td>
+                    <td>+11</td>
                     <td><strong>65</strong></td>
                 </tr>
                 <tr>
                     <td>8</td>
                     <td><img src="{{ asset('images/equipos_segunda/huesca.png') }}" alt="S. D. Huesca" width="24"> S. D. Huesca</td>
-                    <td>41</td>
-                    <td>17</td>
+                    <td>42</td>
+                    <td>18</td>
                     <td>10</td>
                     <td>14</td>
-                    <td>55</td>
-                    <td>47</td>
-                    <td>+8</td>
-                    <td><strong>61</strong></td>
+                    <td>58</td>
+                    <td>49</td>
+                    <td>+9</td>
+                    <td><strong>64</strong></td>
                 </tr>
                 <tr>
                     <td>9</td>
                     <td><img src="{{ asset('images/equipos_segunda/eibar.png') }}" alt="Eibar" width="24"> Eibar</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>15</td>
                     <td>13</td>
-                    <td>13</td>
+                    <td>14</td>
                     <td>44</td>
-                    <td>40</td>
-                    <td>+4</td>
+                    <td>41</td>
+                    <td>+3</td>
                     <td><strong>58</strong></td>
                 </tr>
                 <tr>
                     <td>10</td>
                     <td><img src="{{ asset('images/equipos_segunda/albacete.png') }}" alt="Albacete" width="24"> Albacete</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>15</td>
-                    <td>12</td>
+                    <td>13</td>
                     <td>14</td>
-                    <td>56</td>
-                    <td>56</td>
+                    <td>57</td>
+                    <td>57</td>
                     <td>0</td>
-                    <td><strong>57</strong></td>
+                    <td><strong>58</strong></td>
                 </tr>
                 <tr>
                     <td>11</td>
-                    <td><img src="{{ asset('images/equipos_segunda/cadiz.png') }}" alt="Cádiz" width="24"> Cádiz</td>
-                    <td>41</td>
+                    <td><img src="{{ asset('images/equipos_segunda/sporting.png') }}" alt="Sporting Gijón" width="24"> Sporting Gijón</td>
+                    <td>42</td>
                     <td>14</td>
-                    <td>13</td>
                     <td>14</td>
+                    <td>14</td>
+                    <td>57</td>
                     <td>54</td>
-                    <td>51</td>
                     <td>+3</td>
-                    <td><strong>55</strong></td>
+                    <td><strong>56</strong></td>
                 </tr>
                 <tr>
                     <td>12</td>
                     <td><img src="{{ asset('images/equipos_segunda/burgos.png') }}" alt="Burgos" width="24"> Burgos</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>15</td>
-                    <td>9</td>
+                    <td>10</td>
                     <td>17</td>
-                    <td>39</td>
-                    <td>46</td>
+                    <td>41</td>
+                    <td>48</td>
                     <td>-7</td>
-                    <td><strong>54</strong></td>
+                    <td><strong>55</strong></td>
                 </tr>
                 <tr>
                     <td>13</td>
-                    <td><img src="{{ asset('images/equipos_segunda/cordoba.png') }}" alt="Córdoba" width="24"> Córdoba</td>
-                    <td>41</td>
+                    <td><img src="{{ asset('images/equipos_segunda/cadiz.png') }}" alt="Cádiz" width="24"> Cádiz</td>
+                    <td>42</td>
                     <td>14</td>
-                    <td>12</td>
+                    <td>13</td>
                     <td>15</td>
-                    <td>58</td>
-                    <td>62</td>
-                    <td>-4</td>
-                    <td><strong>54</strong></td>
+                    <td>55</td>
+                    <td>53</td>
+                    <td>+2</td>
+                    <td><strong>55</strong></td>
                 </tr>
                 <tr>
                     <td>14</td>
-                    <td><img src="{{ asset('images/equipos_segunda/sporting.png') }}" alt="Sporting Gijón" width="24"> Sporting Gijón</td>
-                    <td>41</td>
+                    <td><img src="{{ asset('images/equipos_segunda/cordoba.png') }}" alt="Córdoba" width="24"> Córdoba</td>
+                    <td>42</td>
+                    <td>14</td>
                     <td>13</td>
-                    <td>14</td>
-                    <td>14</td>
-                    <td>55</td>
-                    <td>54</td>
-                    <td>+1</td>
-                    <td><strong>53</strong></td>
+                    <td>15</td>
+                    <td>59</td>
+                    <td>63</td>
+                    <td>-4</td>
+                    <td><strong>55</strong></td>
                 </tr>
                 <tr>
                     <td>15</td>
                     <td><img src="{{ asset('images/equipos_segunda/deportivo.png') }}" alt="Deportivo" width="24"> Deportivo</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>13</td>
                     <td>14</td>
-                    <td>14</td>
+                    <td>15</td>
                     <td>56</td>
-                    <td>50</td>
-                    <td>+6</td>
+                    <td>54</td>
+                    <td>+2</td>
                     <td><strong>53</strong></td>
                 </tr>
                 <tr>
                     <td>16</td>
                     <td><img src="{{ asset('images/equipos_segunda/malaga.png') }}" alt="Málaga" width="24"> Málaga</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>12</td>
-                    <td>16</td>
+                    <td>17</td>
                     <td>13</td>
-                    <td>40</td>
-                    <td>44</td>
+                    <td>42</td>
+                    <td>46</td>
                     <td>-4</td>
-                    <td><strong>52</strong></td>
+                    <td><strong>53</strong></td>
                 </tr>
                 <tr>
                     <td>17</td>
-                    <td><img src="{{ asset('images/equipos_segunda/zaragoza.png') }}" alt="Real Zaragoza" width="24"> Real Zaragoza</td>
-                    <td>41</td>
-                    <td>13</td>
-                    <td>12</td>
-                    <td>16</td>
-                    <td>55</td>
-                    <td>59</td>
-                    <td>-4</td>
-                    <td><strong>51</strong></td>
+                    <td><img src="{{ asset('images/equipos_segunda/castellon.png') }}" alt="Castellón" width="24"> Castellón</td>
+                    <td>42</td>
+                    <td>14</td>
+                    <td>11</td>
+                    <td>17</td>
+                    <td>65</td>
+                    <td>63</td>
+                    <td>+2</td>
+                    <td><strong>53</strong></td>
                 </tr>
                 <tr>
                     <td>18</td>
-                    <td><img src="{{ asset('images/equipos_segunda/castellon.png') }}" alt="Castellón" width="24"> Castellón</td>
-                    <td>41</td>
+                    <td><img src="{{ asset('images/equipos_segunda/zaragoza.png') }}" alt="Real Zaragoza" width="24"> Real Zaragoza</td>
+                    <td>42</td>
                     <td>13</td>
-                    <td>11</td>
+                    <td>12</td>
                     <td>17</td>
-                    <td>61</td>
-                    <td>62</td>
-                    <td>-1</td>
-                    <td><strong>50</strong></td>
+                    <td>56</td>
+                    <td>63</td>
+                    <td>-7</td>
+                    <td><strong>51</strong></td>
                 </tr>
                 <tr>
                     <td>19</td>
                     <td><img src="{{ asset('images/equipos_segunda/eldense.png') }}" alt="CD Eldense" width="24"> CD Eldense</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>11</td>
                     <td>12</td>
-                    <td>18</td>
-                    <td>42</td>
-                    <td>60</td>
-                    <td>-18</td>
+                    <td>19</td>
+                    <td>44</td>
+                    <td>63</td>
+                    <td>-19</td>
                     <td><strong>45</strong></td>
                 </tr>
                 <tr>
                     <td>20</td>
                     <td><img src="{{ asset('images/equipos_segunda/tenerife.png') }}" alt="Tenerife" width="24"> Tenerife</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>8</td>
                     <td>12</td>
-                    <td>21</td>
+                    <td>22</td>
                     <td>35</td>
-                    <td>53</td>
-                    <td>-18</td>
+                    <td>55</td>
+                    <td>-20</td>
                     <td><strong>36</strong></td>
                 </tr>
                 <tr>
                     <td>21</td>
                     <td><img src="{{ asset('images/equipos_segunda/ferrol.png') }}" alt="Racing Ferrol" width="24"> Racing Ferrol</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>6</td>
                     <td>12</td>
-                    <td>23</td>
+                    <td>24</td>
                     <td>22</td>
-                    <td>62</td>
-                    <td>-40</td>
+                    <td>64</td>
+                    <td>-42</td>
                     <td><strong>30</strong></td>
                 </tr>
                 <tr>
                     <td>22</td>
                     <td><img src="{{ asset('images/equipos_segunda/cartagena.png') }}" alt="Cartagena" width="24"> Cartagena</td>
-                    <td>41</td>
+                    <td>42</td>
                     <td>6</td>
                     <td>5</td>
-                    <td>30</td>
-                    <td>32</td>
-                    <td>75</td>
-                    <td>-43</td>
+                    <td>31</td>
+                    <td>33</td>
+                    <td>78</td>
+                    <td>-45</td>
                     <td><strong>23</strong></td>
                 </tr>
             </tbody>
